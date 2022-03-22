@@ -61,6 +61,7 @@ private:
   void doCalcs();
   void getParams(double in, double& value, double& scale);
   void pidEnableCallback(const std_msgs::Bool& pid_enable_msg);
+  void integralClearCallback(const std_msgs::Bool& integral_clear_msg);
   void plantStateCallback(const std_msgs::Float64& state_msg);
   void printParameters();
   void reconfigureCallback(pid::PidConfig& config, uint32_t level);
@@ -99,6 +100,10 @@ private:
   // -1 indicates publish indefinately, and positive number sets the timeout
   double setpoint_timeout_ = -1;
 
+  // Greater than zero values set how big is the dead band.
+  // -1 disables dead band
+  double dead_band_ = -1;
+
   // Used in filter calculations. Default 1.0 corresponds to a cutoff frequency
   // at
   // 1/4 of the sample rate.
@@ -120,7 +125,7 @@ private:
   ros::Publisher control_effort_pub_;
   ros::Publisher pid_debug_pub_;
 
-  std::string topic_from_controller_, topic_from_plant_, setpoint_topic_, pid_enable_topic_;
+  std::string topic_from_controller_, topic_from_plant_, setpoint_topic_, pid_enable_topic_, integral_clear_topic_;
   std::string pid_debug_pub_name_;
   std_msgs::Float64 control_msg_, state_msg_;
 

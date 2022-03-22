@@ -23,10 +23,12 @@ PidObject::PidObject() : error_(3, 0), filtered_error_(3, 0), error_deriv_(3, 0)
   node_priv.param<double>("lower_limit", lower_limit_, -1000.0);
   node_priv.param<double>("windup_limit", windup_limit_, 1000.0);
   node_priv.param<double>("cutoff_frequency", cutoff_frequency_, -1.0);
+  node_priv.param<double>("dead_band", dead_band_, -1.0);
   node_priv.param<std::string>("topic_from_controller", topic_from_controller_, "control_effort");
   node_priv.param<std::string>("topic_from_plant", topic_from_plant_, "state");
   node_priv.param<std::string>("setpoint_topic", setpoint_topic_, "setpoint");
   node_priv.param<std::string>("pid_enable_topic", pid_enable_topic_, "pid_enable");
+  node_priv.param<std::string>("integral_clear_topic", integral_clear_topic_, "clear_integral");
   node_priv.param<double>("max_loop_frequency", max_loop_frequency_, 1.0);
   node_priv.param<double>("min_loop_frequency", min_loop_frequency_, 1000.0);
   node_priv.param<std::string>("pid_debug_topic", pid_debug_pub_name_, "pid_debug");
@@ -50,8 +52,9 @@ PidObject::PidObject() : error_(3, 0), filtered_error_(3, 0), error_deriv_(3, 0)
   ros::Subscriber plant_sub_ = node.subscribe(topic_from_plant_, 1, &PidObject::plantStateCallback, this);
   ros::Subscriber setpoint_sub_ = node.subscribe(setpoint_topic_, 1, &PidObject::setpointCallback, this);
   ros::Subscriber pid_enabled_sub_ = node.subscribe(pid_enable_topic_, 1, &PidObject::pidEnableCallback, this);
+  ros::Subscriber integral_clear_sub_ = node.subscribe(integral_clear_topic_, 1, &PidObject::integralClearCallback, this);
 
-  if (!plant_sub_ || !setpoint_sub_ || !pid_enabled_sub_)
+  if (!plant_sub_ || !setpoint_sub_ || !pid_enabled_sub_ || !integral_clear_sub_)
   {
     ROS_ERROR_STREAM("Initialization of a subscriber failed. Exiting.");
     ros::shutdown();
@@ -99,6 +102,13 @@ void PidObject::plantStateCallback(const std_msgs::Float64& state_msg)
 void PidObject::pidEnableCallback(const std_msgs::Bool& pid_enable_msg)
 {
   pid_enabled_ = pid_enable_msg.data;
+}
+
+void PidObject::integralClearCallback(const std_msgs::Bool& integralClearCallback)
+{
+  if (integralClearCallback.data) {
+    error_integral_ = 0.0;
+  }
 }
 
 void PidObject::getParams(double in, double& value, double& scale)
@@ -186,7 +196,19 @@ void PidObject::doCalcs()
 
     error_.at(2) = error_.at(1);
     error_.at(1) = error_.at(0);
-    error_.at(0) = setpoint_ - plant_state_;  // Current error goes to slot 0
+
+    // compute error
+    double error = setpoint_ - plant_state_;
+    // if error is grater than deadband rewrite it
+    if (abs(error) >= dead_band_)
+    {
+      error_.at(0) = error;  // Current error goes to slot 0
+    }
+    // if error is smaller than dedband treat error as it does not exist
+    else
+    {
+      error_.at(0) = 0.0f;
+    }
 
     // If the angle_error param is true, then address discontinuity in error
     // calc.
