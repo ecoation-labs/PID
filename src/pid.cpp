@@ -208,7 +208,7 @@ void PidObject::doCalcs()
     else
     {
       error_.at(0) = 0.0f;
-      if (error_.at(0) == 0.0f && error_.at(1) == 0.0f && error_.at(2) == 0.0f) {
+      if (error_.at(0) < 1e-10 && error_.at(1) < 1e-10 && error_.at(2) < 1e-10) {
         error_integral_ = 0.0f;
       }
     }
