@@ -208,6 +208,9 @@ void PidObject::doCalcs()
     else
     {
       error_.at(0) = 0.0f;
+      if (error_.at(0) == 0.0f && error_.at(1) == 0.0f && error_.at(2) == 0.0f) {
+        error_integral_ = 0.0f;
+      }
     }
 
     // If the angle_error param is true, then address discontinuity in error
