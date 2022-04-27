@@ -246,6 +246,23 @@ public:
         {
           Kd = boost::any_cast<double>(val);
         }
+
+        if ("upper_limit_scale" == (*_i)->name)
+        {
+          upper_limit_scale = boost::any_cast<double>(val);
+        }
+        if ("upper_limit" == (*_i)->name)
+        {
+          upper_limit = boost::any_cast<double>(val);
+        }
+        if ("lower_limit_scale" == (*_i)->name)
+        {
+          lower_limit_scale = boost::any_cast<double>(val);
+        }
+        if ("lower_limit" == (*_i)->name)
+        {
+          lower_limit = boost::any_cast<double>(val);
+        }
       }
     }
 
@@ -255,6 +272,10 @@ public:
     double Ki;
     double Kd_scale;
     double Kd;
+    double upper_limit_scale;
+    double upper_limit;
+    double lower_limit_scale;
+    double lower_limit;
 
     bool state;
     std::string name;
@@ -279,6 +300,19 @@ public:
   //#line 262
   //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
   double Kd;
+  //#line 262
+  //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+  double upper_limit_scale;
+  //#line 262
+  //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+  double upper_limit;
+  //#line 262
+  //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+  double lower_limit_scale;
+  //#line 262
+  //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+  double lower_limit;
+
   //#line 218
   //"/opt/ros/indigo/share/dynamic_reconfigure/cmake/../templates/ConfigType.h.template"
 
@@ -639,6 +673,147 @@ class PidConfigStatics
     //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
     __param_descriptions__.push_back(PidConfig::AbstractParamDescriptionConstPtr(
         new PidConfig::ParamDescription<double>("Kd", "double", 0, "Kd", "", &PidConfig::Kd)));
+    //#line 262
+    //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+    __min__.upper_limit_scale = 0.1;
+    //#line 262
+    //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+    __max__.upper_limit_scale = 100.0;
+    //#line 262
+    //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+    __default__.upper_limit_scale = 10.0;
+    //#line 262
+    //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+    Default.abstract_parameters.push_back(PidConfig::AbstractParamDescriptionConstPtr(
+        new PidConfig::ParamDescription<double>("upper_limit_scale", "double", 0, "upper limit scale",
+                                                "{'enum_description': 'Scale factor for K setting', 'enum': "
+                                                "[{'srcline': 7, 'description': 'Scale by 0.1', 'srcfile': "
+                                                "'/home/andy/Desktop/catkin_ws/src/pid/cfg/Pid.cfg', "
+                                                "'cconsttype': 'const double', 'value': 0.1, 'ctype': "
+                                                "'double', 'type': 'double', 'name': 'scale_tenth'}, "
+                                                "{'srcline': 8, 'description': 'No scaling', 'srcfile': "
+                                                "'/home/andy/Desktop/catkin_ws/src/pid/cfg/Pid.cfg', "
+                                                "'cconsttype': 'const double', 'value': 1.0, 'ctype': "
+                                                "'double', 'type': 'double', 'name': 'scale_unity'}, "
+                                                "{'srcline': 9, 'description': 'Scale by 10', 'srcfile': "
+                                                "'/home/andy/Desktop/catkin_ws/src/pid/cfg/Pid.cfg', "
+                                                "'cconsttype': 'const double', 'value': 10.0, 'ctype': "
+                                                "'double', 'type': 'double', 'name': 'scale_ten'}, {'srcline': "
+                                                "10, 'description': 'Scale by 100', 'srcfile': "
+                                                "'/home/andy/Desktop/catkin_ws/src/pid/cfg/Pid.cfg', "
+                                                "'cconsttype': 'const double', 'value': 100.0, 'ctype': "
+                                                "'double', 'type': 'double', 'name': 'scale_hundred'}]}",
+                                                &PidConfig::upper_limit_scale)));
+    //#line 262
+    //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+    __param_descriptions__.push_back(PidConfig::AbstractParamDescriptionConstPtr(
+        new PidConfig::ParamDescription<double>("upper_limit_scale", "double", 0, "upper_limit scale",
+                                                "{'enum_description': 'Scale factor for K setting', 'enum': "
+                                                "[{'srcline': 7, 'description': 'Scale by 0.1', 'srcfile': "
+                                                "'/home/andy/Desktop/catkin_ws/src/pid/cfg/Pid.cfg', "
+                                                "'cconsttype': 'const double', 'value': 0.1, 'ctype': "
+                                                "'double', 'type': 'double', 'name': 'scale_tenth'}, "
+                                                "{'srcline': 8, 'description': 'No scaling', 'srcfile': "
+                                                "'/home/andy/Desktop/catkin_ws/src/pid/cfg/Pid.cfg', "
+                                                "'cconsttype': 'const double', 'value': 1.0, 'ctype': "
+                                                "'double', 'type': 'double', 'name': 'scale_unity'}, "
+                                                "{'srcline': 9, 'description': 'Scale by 10', 'srcfile': "
+                                                "'/home/andy/Desktop/catkin_ws/src/pid/cfg/Pid.cfg', "
+                                                "'cconsttype': 'const double', 'value': 10.0, 'ctype': "
+                                                "'double', 'type': 'double', 'name': 'scale_ten'}, {'srcline': "
+                                                "10, 'description': 'Scale by 100', 'srcfile': "
+                                                "'/home/andy/Desktop/catkin_ws/src/pid/cfg/Pid.cfg', "
+                                                "'cconsttype': 'const double', 'value': 100.0, 'ctype': "
+                                                "'double', 'type': 'double', 'name': 'scale_hundred'}]}",
+                                                &PidConfig::upper_limit_scale)));
+    //#line 262
+    //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+    __min__.upper_limit = 0.0;
+    //#line 262
+    //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+    __max__.upper_limit = 2.0;
+    //#line 262
+    //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+    __default__.upper_limit = 0.1;
+    //#line 262
+    //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+    Default.abstract_parameters.push_back(PidConfig::AbstractParamDescriptionConstPtr(
+        new PidConfig::ParamDescription<double>("upper_limit", "double", 0, "upper_limit", "", &PidConfig::upper_limit)));
+    //#line 262
+    //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+    __param_descriptions__.push_back(PidConfig::AbstractParamDescriptionConstPtr(
+        new PidConfig::ParamDescription<double>("upper_limit", "double", 0, "upper_limit", "", &PidConfig::upper_limit)));
+    //#line 262
+    //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+    __min__.lower_limit_scale = 0.1;
+    //#line 262
+    //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+    __max__.lower_limit_scale = 100.0;
+    //#line 262
+    //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+    __default__.lower_limit_scale = 10.0;
+    //#line 262
+    //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+    Default.abstract_parameters.push_back(PidConfig::AbstractParamDescriptionConstPtr(
+        new PidConfig::ParamDescription<double>("lower_limit_scale", "double", 0, "lower_limit scale",
+                                                "{'enum_description': 'Scale factor for K setting', 'enum': "
+                                                "[{'srcline': 7, 'description': 'Scale by 0.1', 'srcfile': "
+                                                "'/home/andy/Desktop/catkin_ws/src/pid/cfg/Pid.cfg', "
+                                                "'cconsttype': 'const double', 'value': 0.1, 'ctype': "
+                                                "'double', 'type': 'double', 'name': 'scale_tenth'}, "
+                                                "{'srcline': 8, 'description': 'No scaling', 'srcfile': "
+                                                "'/home/andy/Desktop/catkin_ws/src/pid/cfg/Pid.cfg', "
+                                                "'cconsttype': 'const double', 'value': 1.0, 'ctype': "
+                                                "'double', 'type': 'double', 'name': 'scale_unity'}, "
+                                                "{'srcline': 9, 'description': 'Scale by 10', 'srcfile': "
+                                                "'/home/andy/Desktop/catkin_ws/src/pid/cfg/Pid.cfg', "
+                                                "'cconsttype': 'const double', 'value': 10.0, 'ctype': "
+                                                "'double', 'type': 'double', 'name': 'scale_ten'}, {'srcline': "
+                                                "10, 'description': 'Scale by 100', 'srcfile': "
+                                                "'/home/andy/Desktop/catkin_ws/src/pid/cfg/Pid.cfg', "
+                                                "'cconsttype': 'const double', 'value': 100.0, 'ctype': "
+                                                "'double', 'type': 'double', 'name': 'scale_hundred'}]}",
+                                                &PidConfig::lower_limit_scale)));
+    //#line 262
+    //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+    __param_descriptions__.push_back(PidConfig::AbstractParamDescriptionConstPtr(
+        new PidConfig::ParamDescription<double>("lower_limit_scale", "double", 0, "lower_limit scale",
+                                                "{'enum_description': 'Scale factor for K setting', 'enum': "
+                                                "[{'srcline': 7, 'description': 'Scale by 0.1', 'srcfile': "
+                                                "'/home/andy/Desktop/catkin_ws/src/pid/cfg/Pid.cfg', "
+                                                "'cconsttype': 'const double', 'value': 0.1, 'ctype': "
+                                                "'double', 'type': 'double', 'name': 'scale_tenth'}, "
+                                                "{'srcline': 8, 'description': 'No scaling', 'srcfile': "
+                                                "'/home/andy/Desktop/catkin_ws/src/pid/cfg/Pid.cfg', "
+                                                "'cconsttype': 'const double', 'value': 1.0, 'ctype': "
+                                                "'double', 'type': 'double', 'name': 'scale_unity'}, "
+                                                "{'srcline': 9, 'description': 'Scale by 10', 'srcfile': "
+                                                "'/home/andy/Desktop/catkin_ws/src/pid/cfg/Pid.cfg', "
+                                                "'cconsttype': 'const double', 'value': 10.0, 'ctype': "
+                                                "'double', 'type': 'double', 'name': 'scale_ten'}, {'srcline': "
+                                                "10, 'description': 'Scale by 100', 'srcfile': "
+                                                "'/home/andy/Desktop/catkin_ws/src/pid/cfg/Pid.cfg', "
+                                                "'cconsttype': 'const double', 'value': 100.0, 'ctype': "
+                                                "'double', 'type': 'double', 'name': 'scale_hundred'}]}",
+                                                &PidConfig::lower_limit_scale)));
+    //#line 262
+    //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+    __min__.lower_limit = -2.0;
+    //#line 262
+    //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+    __max__.lower_limit = 0.0;
+    //#line 262
+    //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+    __default__.lower_limit = 0.1;
+    //#line 262
+    //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+    Default.abstract_parameters.push_back(PidConfig::AbstractParamDescriptionConstPtr(
+        new PidConfig::ParamDescription<double>("lower_limit", "double", 0, "lower_limit", "", &PidConfig::lower_limit)));
+    //#line 262
+    //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
+    __param_descriptions__.push_back(PidConfig::AbstractParamDescriptionConstPtr(
+        new PidConfig::ParamDescription<double>("lower_limit", "double", 0, "lower_limit", "", &PidConfig::lower_limit)));
+
     //#line 233
     //"/opt/ros/indigo/lib/python2.7/dist-packages/dynamic_reconfigure/parameter_generator_catkin.py"
     Default.convertParams();
