@@ -174,6 +174,8 @@ void PidObject::reconfigureCallback(pid::PidConfig& config, uint32_t level)
     getParams(Kp_, config.Kp, config.Kp_scale);
     getParams(Ki_, config.Ki, config.Ki_scale);
     getParams(Kd_, config.Kd, config.Kd_scale);
+    getParams(upper_limit_, config.upper_limit, config.upper_limit_scale);
+    getParams(lower_limit_, config.lower_limit, config.lower_limit_scale);
     first_reconfig_ = false;
     return;  // Ignore the first call to reconfigure which happens at startup
   }
@@ -181,7 +183,9 @@ void PidObject::reconfigureCallback(pid::PidConfig& config, uint32_t level)
   Kp_ = config.Kp * config.Kp_scale;
   Ki_ = config.Ki * config.Ki_scale;
   Kd_ = config.Kd * config.Kd_scale;
-  ROS_INFO("Pid reconfigure request: Kp: %f, Ki: %f, Kd: %f", Kp_, Ki_, Kd_);
+  upper_limit_ = config.upper_limit * config.upper_limit_scale;
+  lower_limit_ = config.lower_limit * config.lower_limit_scale;
+  ROS_INFO("Pid reconfigure request: Kp: %f, Ki: %f, Kd: %f, upper_limit: %f, lower_limit: %f", Kp_, Ki_, Kd_, upper_limit_, lower_limit_);
 }
 
 void PidObject::doCalcs()
